@@ -1,1 +1,47 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+  --color-primary: #500724;
+  --color-secondary: #f0f9ff;
+  --color-accent: #fecdd3;
+  --color-info: #431407;
+  --color-base: #9ca3af;
+}
+
+@theme {
+  --font-dyslexic: "OpenDyslexic";
+}
+
+/* OpenDyslexic Regular */
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("/fonts/open-dyslexic/OpenDyslexic-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* OpenDyslexic Bold */
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("/fonts/open-dyslexic/OpenDyslexic-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* OpenDyslexic Italic */
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("/fonts/open-dyslexic/OpenDyslexic-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* OpenDyslexic Bold Italic */
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("/fonts/open-dyslexic/OpenDyslexic-Bold-italic.woff2")
+    format("woff2");
+  font-weight: bold;
+  font-style: italic;
+}
