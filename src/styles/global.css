@@ -1,12 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-:root {
-  --color-primary: #500724;
-  --color-secondary: #f0f9ff;
-  --color-accent: #fecdd3;
-  --color-info: #431407;
-  --color-base: #9ca3af;
+@layer components {
+  .toolbar {
+    @apply  space-y-5 max-h-80 flex flex-col p-5 items-center bg-base-300 rounded-box;
+  }
 }
 
 @theme {

@@ -4,8 +4,26 @@ import { TextField } from "../components/TextField";
 ---
 
 <Layout>
-  <h1 class="">
-    Hola
-  </h1>
-  <TextField client:only/>
+  <main class="min-h-screen flex flex-col items-center justify-center bg-base-100 text-base-content">
+    <!-- Hero Section -->
+    <section class="w-full py-10 text-center px-4">
+      <h1 class="text-4xl font-bold mb-4">
+        📖 LexiSign
+      </h1>
+      <p class="text-lg max-w-2xl mx-auto opacity-80">
+        Una herramienta diseñada para hacer la lectura más accesible para personas con dislexia o dificultades de lectura.  
+        Ajusta el tamaño de fuente, la tipografía, divide el texto en bloques y escúchalo en voz alta.
+      </p>
+    </section>
+
+    <!-- App Section -->
+    <section class="w-full max-w-5xl bg-base-200 rounded-xl shadow-lg p-6 my-8">
+      <TextField client:only />
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center text-sm opacity-70">
+      Hecho con ❤️ para una lectura más inclusiva — LexiSign © {new Date().getFullYear()}
+    </footer>
+  </main>
 </Layout>

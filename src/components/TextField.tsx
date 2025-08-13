@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Toolbar } from "./Toolbar";
+import { TextOutput } from "./TextOutput";
 
-const splitText = (text: string, chunckSize = 10) => {
+const splitText = (text: string, chunkSize = 10) => {
   const words = text.split(" ");
   const chunks = [];
-
-  for (let i = 0; i < words.length; i += chunckSize) {
-    chunks.push(words.slice(i, i + chunckSize).join(" "));
+  for (let i = 0; i < words.length; i += chunkSize) {
+    chunks.push(words.slice(i, i + chunkSize).join(" "));
   }
-
   return chunks;
 };
 
@@ -16,70 +16,53 @@ export const TextField = () => {
   const [chunks, setChunks] = useState<string[]>([]);
   const [fontSize, setFontSize] = useState(18);
   const [useDyslexicFont, setUseDyslexicFont] = useState(false);
+  const [chunkSize, setChunkSize] = useState(10);
+  const [voiceRate, setVoiceRate] = useState(1);
+  const [voicePitch, setVoicePitch] = useState(1);
 
-  const handleProcess = () => {
-    const result = splitText(inputText, 10);
-    setChunks(result);
-  };
-
-  const handleFontSize = (option: "plus" | "minus") => {
-    if (option === "plus") {
-      setFontSize(fontSize + 2);
+  useEffect(() => {
+    if (inputText.trim()) {
+      setChunks(splitText(inputText, chunkSize));
+    } else {
+      setChunks([]);
     }
-
-    if (option === "minus") {
-      if (fontSize === 14) {
-        alert("Cant diminish font size.");
-        return;
-      }
-      setFontSize(fontSize - 2);
-    }
-  };
-
-  const speak = (text: string) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    speechSynthesis.speak(utterance);
-  };
+  }, [inputText, chunkSize]);
 
   return (
-    <div>
-      <div className="my-5 space-x-5">
-        <button aria-label="Dividir texto" onClick={handleProcess}>Dividir Texto</button>
-        <button aria-label="Aumentar letra" onClick={() => handleFontSize('plus')}>
-          Aumentar Letra
-        </button>
-        <button aria-label="Disminuir letra" onClick={() => handleFontSize('minus')}>
-          Disminuir Letra
-        </button>
-        <label aria-label="Cambiar la tipografía">
-          <input
-            type="checkbox"
-            checked={useDyslexicFont}
-            onChange={() => setUseDyslexicFont(!useDyslexicFont)}
-          />
-          Tipografía Disléxica
-        </label>
-      </div>
-
-      <fieldset className="fieldset">
-        <legend className="fieldset-legend">Pega aquí</legend>
-        <textarea
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          className="textarea h-24"
-          placeholder="Pegá tu texto aquí..."
+    <div className="flex-col flex items-center">
+      <div className="flex gap-10 w-full lg:w-3/4 my-10">
+        <Toolbar
+          fontSize={fontSize}
+          chunkSize={chunkSize}
+          setFontSize={setFontSize}
+          setChunkSize={setChunkSize}
+          setUseDyslexicFont={setUseDyslexicFont}
+          useDyslexicFont={useDyslexicFont}
+          voiceRate={voiceRate}
+          setVoiceRate={setVoiceRate}
+          voicePitch={voicePitch}
+          setVoicePitch={setVoicePitch}
         />
-        <div className="label">Optional</div>
-      </fieldset>
 
-      <div style={{ marginTop: "2rem" }}>
-        {chunks.map((chunk, i) => (
-          <div key={i} style={{ marginBottom: "1rem", fontSize }}>
-            <p className={useDyslexicFont ? "font-dyslexic" : ""}>{chunk}</p>
-            <button onClick={() => speak(chunk)}>🔊 Escuchar</button>
-          </div>
-        ))}
+        <div className="flex-1">
+          <fieldset className="fieldset w-full">
+            <textarea
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              className="textarea h-96 w-full mx-auto focus:outline-none"
+              placeholder="Pegá tu texto aquí..."
+            />
+          </fieldset>
+        </div>
       </div>
+
+      <TextOutput
+        chunks={chunks}
+        fontSize={fontSize}
+        useDyslexicFont={useDyslexicFont}
+        voiceRate={voiceRate}
+        voicePitch={voicePitch}
+      />
     </div>
   );
 };
