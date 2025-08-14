@@ -30,7 +30,7 @@ export const TextField = () => {
 
   return (
     <div className="flex-col flex items-center">
-      <div className="flex gap-10 w-full lg:w-3/4 my-10">
+      <div className="flex flex-col lg:flex-row gap-6 w-full lg:w-3/4 my-10">
         <Toolbar
           fontSize={fontSize}
           chunkSize={chunkSize}
@@ -49,7 +49,7 @@ export const TextField = () => {
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="textarea h-96 w-full mx-auto focus:outline-none"
+              className="textarea h-72 lg:h-96 w-full mx-auto focus:outline-none"
               placeholder="Pegá tu texto aquí..."
             />
           </fieldset>
